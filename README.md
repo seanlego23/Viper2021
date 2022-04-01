@@ -1,4 +1,4 @@
-# RPI Game Architecture Homework Repro
+# RPI Game Architecture Homework Repository
 
   * build - Project files & makefiles as well as the scripts for generating them.
   * personal - Scratch space.
