@@ -36,6 +36,7 @@ add_library(lua53 ${LUA_SOURCE_FILES})
 # GA framework and homeworks:
 include_directories ("${CMAKE_CURRENT_SOURCE_DIR}")
 file(GLOB_RECURSE GA_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+file(GLOB_RECURSE GA_HEADER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 
 # On Windows, we're not going to worry about CRT secure warnings.
 if (MSVC)
@@ -47,7 +48,7 @@ if (MINGW)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -D_POSIX_C_SOURCE")
 endif()
 
-add_executable(ga ${GA_SOURCE_FILES} always_copy_data.h)
+add_executable(ga ${GA_SOURCE_FILES} ${GA_HEADER_FILES} always_copy_data.h)
 target_link_libraries (ga SDL2-static glew32s opengl32 lua53)
 if (MSVC)
 	set_target_properties(ga PROPERTIES LINK_FLAGS "/ignore:4098 /ignore:4099")
