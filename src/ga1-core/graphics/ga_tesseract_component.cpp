@@ -529,7 +529,13 @@ ga_tesseract_component::ga_tesseract_component(ga_entity * ent, const char* text
 
 ga_tesseract_component::~ga_tesseract_component() 
 {
+	glDeleteBuffers(4, _vbos);
+	glDeleteVertexArrays(1, &_vao);
 
+	delete _material;
 }
 
-void ga_tesseract_component::update(ga_frame_params * params) {}
+void ga_tesseract_component::update(ga_frame_params * params) 
+{
+
+}
