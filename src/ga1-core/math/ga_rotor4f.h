@@ -1,5 +1,5 @@
 #pragma once
-class ga_rotor 
+class ga_rotor4f 
 {
 
 };
