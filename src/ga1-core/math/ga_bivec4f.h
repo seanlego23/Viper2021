@@ -1,5 +1,5 @@
 #pragma once
-class ga_bivec4f 
+struct ga_bivec4f 
 {
 
 };
