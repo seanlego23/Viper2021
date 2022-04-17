@@ -10,6 +10,7 @@
 #include "ga_material.h"
 
 #include "ga_animation.h"
+#include "math/ga_transform4d_component.h"
 
 #include <cassert>
 #include <fstream>
@@ -204,4 +205,24 @@ void ga_animated_material::bind(const ga_mat4f& view_proj, const ga_mat4f& trans
 	glDisable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
+}
+
+ga_4d_untextured_material::ga_4d_untextured_material(ga_transform4d * transform) 
+{
+
+}
+
+ga_4d_untextured_material::~ga_4d_untextured_material() 
+{
+
+}
+
+bool ga_4d_untextured_material::init() 
+{
+	return false;
+}
+
+void ga_4d_untextured_material::bind(const ga_mat4f & view_proj, const ga_mat4f & transform) 
+{
+
 }
