@@ -24,6 +24,7 @@ class ga_uniform
 	friend class ga_program;
 
 public:
+	void set(const float val);
 	void set(const struct ga_vec3f& vec);
 	void set(const struct ga_vec4f& vec);
 	void set(const struct ga_rotor4f& vec);
