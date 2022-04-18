@@ -76,29 +76,6 @@ private:
 };
 
 /*
-** Simple 4d untextured material
-*/
-class ga_4d_untextured_material : public ga_material 
-{
-public:
-	ga_4d_untextured_material(class ga_transform4d* transform);
-	~ga_4d_untextured_material();
-
-	virtual bool init() override;
-
-	virtual void bind(const ga_mat4f& view_proj, const ga_mat4f& transform) override;
-
-	virtual void set_color(const ga_vec3f& color) override { }
-
-private:
-	ga_shader* _vs;
-	ga_shader* _gs;
-	ga_shader* _fs;
-	ga_program* _program;
-	class ga_transform4d* _transform;
-};
-
-/*
 ** A material which supports vertex animation.
 */
 class ga_animated_material : public ga_material
@@ -116,4 +93,26 @@ private:
 	ga_program* _program;
 
 	struct ga_skeleton* _skeleton;
+};
+
+/*
+** Simple 4d untextured material
+*/
+class ga_4d_untextured_material : public ga_material {
+public:
+	ga_4d_untextured_material(class ga_transform4d* transform);
+	~ga_4d_untextured_material();
+
+	virtual bool init() override;
+
+	virtual void bind(const ga_mat4f& view_proj, const ga_mat4f& transform) override;
+
+	virtual void set_color(const ga_vec3f& color) override {}
+
+private:
+	ga_shader* _vs;
+	ga_shader* _gs;
+	ga_shader* _fs;
+	ga_program* _program;
+	class ga_transform4d* _transform;
 };
