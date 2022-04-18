@@ -13,6 +13,8 @@
 
 #include "math/ga_mat4f.h"
 #include "math/ga_vec3f.h"
+#include "math/ga_vec4f.h"
+#include "math/ga_rotor4f.h"
 
 #include <cassert>
 
@@ -22,6 +24,16 @@
 void ga_uniform::set(const ga_vec3f& vec)
 {
 	glUniform3fv(_location, 1, vec.axes);
+}
+
+void ga_uniform::set(const ga_vec4f& vec) 
+{
+	glUniform4fv(_location, 1, vec.axes);
+}
+
+void ga_uniform::set(const ga_rotor4f& vec) 
+{
+	glUniform1fv(_location, 7, vec.i);
 }
 
 void ga_uniform::set(const ga_mat4f& mat)

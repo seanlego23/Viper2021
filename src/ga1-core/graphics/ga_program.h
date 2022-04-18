@@ -25,6 +25,8 @@ class ga_uniform
 
 public:
 	void set(const struct ga_vec3f& vec);
+	void set(const struct ga_vec4f& vec);
+	void set(const struct ga_rotor4f& vec);
 	void set(const struct ga_mat4f& mat);
 	void set(const struct ga_mat4f* mats, uint32_t count);
 	void set(const class ga_texture& tex, uint32_t unit);
