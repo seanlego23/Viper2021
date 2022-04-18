@@ -263,5 +263,19 @@ bool ga_4d_untextured_material::init()
 
 void ga_4d_untextured_material::bind(const ga_mat4f & view_proj, const ga_mat4f & transform) 
 {
+	ga_uniform mvp_uniform = _program->get_uniform("u_mvp");
+	ga_uniform translate4d_uniform = _program->get_uniform("u_transform4d.translate");
+	ga_uniform scale4d_uniform = _program->get_uniform("u_transform4d.scale");
+	ga_uniform rotor4d_uniform = _program->get_uniform("u_transform4d.rotor");
 
+	_program->use();
+
+	mvp_uniform.set(transform * view_proj);
+	translate4d_uniform.set(_transform->_translate);
+	scale4d_uniform.set(_transform->_scale);
+	rotor4d_uniform.set(_transform->_rotation);
+
+	glDisable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_TRUE);
 }
