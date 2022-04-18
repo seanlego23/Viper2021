@@ -267,6 +267,7 @@ void ga_4d_untextured_material::bind(const ga_mat4f & view_proj, const ga_mat4f 
 	ga_uniform translate4d_uniform = _program->get_uniform("u_transform4d.translate");
 	ga_uniform scale4d_uniform = _program->get_uniform("u_transform4d.scale");
 	ga_uniform rotor4d_uniform = _program->get_uniform("u_transform4d.rotor");
+	ga_uniform slice_uniform = _program->get_uniform("u_slice");
 
 	_program->use();
 
@@ -274,6 +275,7 @@ void ga_4d_untextured_material::bind(const ga_mat4f & view_proj, const ga_mat4f 
 	translate4d_uniform.set(_transform->_translate);
 	scale4d_uniform.set(_transform->_scale);
 	rotor4d_uniform.set(_transform->_rotation);
+	slice_uniform.set(w_slice);
 
 	glDisable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
