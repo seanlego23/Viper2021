@@ -9,3 +9,4 @@ struct ga_transform4d
 	ga_rotor4f _rotation;
 };
 
+extern float w_slice;
