@@ -10,7 +10,7 @@
 #include "ga_material.h"
 
 #include "ga_animation.h"
-#include "math/ga_transform4d_component.h"
+#include "math/ga_transform4d.h"
 
 #include <cassert>
 #include <fstream>
@@ -207,19 +207,58 @@ void ga_animated_material::bind(const ga_mat4f& view_proj, const ga_mat4f& trans
 	glDepthMask(GL_TRUE);
 }
 
-ga_4d_untextured_material::ga_4d_untextured_material(ga_transform4d * transform) 
+ga_4d_untextured_material::ga_4d_untextured_material(ga_transform4d* transform) 
 {
-
+	_transform = transform;
 }
 
 ga_4d_untextured_material::~ga_4d_untextured_material() 
 {
-
+	_vs ? delete _vs : (void*)0;
+	_gs ? delete _gs : (void*)0;
+	_fs ? delete _fs : (void*)0;
+	_program ? delete _program : (void*)0;
 }
 
 bool ga_4d_untextured_material::init() 
 {
-	return false;
+	std::string source_vs;
+	load_shader("data/shaders/ga_4d_untextured_vert.glsl", source_vs);
+
+	std::string source_gs;
+	load_shader("data/shaders/ga_4d_untextured_geo.glsl", source_gs);
+
+	std::string source_fs;
+	load_shader("data/shaders/ga_4d_untextured_frag.glsl", source_fs);
+
+	_vs = new ga_shader(source_vs.c_str(), GL_VERTEX_SHADER);
+	if (!_vs->compile()) 
+	{
+		std::cerr << "Failed to compile vertex shader:" << std::endl << _vs->get_compile_log() << std::endl;
+	}
+
+	_gs = new ga_shader(source_gs.c_str(), GL_GEOMETRY_SHADER);
+	if (!_gs->compile()) 
+	{
+		std::cerr << "Failed to compile geometry shader:" << std::endl << _gs->get_compile_log() << std::endl;
+	}
+
+	_fs = new ga_shader(source_fs.c_str(), GL_FRAGMENT_SHADER);
+	if (!_fs->compile()) 
+	{
+		std::cerr << "Failed to compile fragment shader:\n\t" << std::endl << _fs->get_compile_log() << std::endl;
+	}
+
+	_program = new ga_program();
+	_program->attach(*_vs);
+	_program->attach(*_gs);
+	_program->attach(*_fs);
+	if (!_program->link()) 
+	{
+		std::cerr << "Failed to link shader program:\n\t" << std::endl << _program->get_link_log() << std::endl;
+	}
+
+	return true;
 }
 
 void ga_4d_untextured_material::bind(const ga_mat4f & view_proj, const ga_mat4f & transform) 
