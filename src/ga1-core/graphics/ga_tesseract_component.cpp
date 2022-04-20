@@ -496,7 +496,11 @@ static GLushort indices[] = {
 ga_tesseract_component::ga_tesseract_component(ga_entity * ent, const char* texture_file) 
 	: ga_component(ent)
 {
-	_material = new ga_unlit_texture_material(texture_file);
+	_transform4d._translate = ga_vec4f::zero_vector();
+	_transform4d._scale = ga_vec4f::one_vector();
+	_transform4d._rotation = { 1.0f }; //Identity rotation, i.e. doesn't rotate
+
+	_material = new ga_4d_untextured_material(&_transform4d);
 	_material->init();
 
 	_index_count = static_cast<uint32_t>(sizeof(indices) / sizeof(indices[0]));
