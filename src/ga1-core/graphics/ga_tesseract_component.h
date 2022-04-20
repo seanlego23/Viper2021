@@ -1,6 +1,7 @@
 #pragma once
 
 #include "entity/ga_component.h"
+#include "math/ga_transform4d.h"
 
 /*
 ** Renderable tesseract (4D Cube)
@@ -14,7 +15,8 @@ public:
 	virtual void update(struct ga_frame_params* params) override;
 
 private:
-	class ga_material*_material;
+	class ga_material* _material;
+	ga_transform4d _transform4d;
 	uint32_t _vao;
 	uint32_t _vbos[4];
 	uint32_t _index_count;
