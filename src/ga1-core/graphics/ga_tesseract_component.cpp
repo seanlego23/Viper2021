@@ -493,7 +493,7 @@ static GLushort indices[] = {
 	94, 95, 92,
 };
 
-ga_tesseract_component::ga_tesseract_component(ga_entity * ent, const char* texture_file) 
+ga_tesseract_component::ga_tesseract_component(ga_entity* ent) 
 	: ga_component(ent)
 {
 	_transform4d._translate = ga_vec4f::zero_vector();

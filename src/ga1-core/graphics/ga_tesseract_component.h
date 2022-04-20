@@ -9,7 +9,7 @@
 class ga_tesseract_component : public ga_component 
 {
 public:
-	ga_tesseract_component(class ga_entity* ent, const char* texture_file);
+	ga_tesseract_component(class ga_entity* ent);
 	virtual ~ga_tesseract_component();
 
 	virtual void update(struct ga_frame_params* params) override;
