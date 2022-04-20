@@ -541,5 +541,15 @@ ga_tesseract_component::~ga_tesseract_component()
 
 void ga_tesseract_component::update(ga_frame_params * params) 
 {
+	ga_static_drawcall draw;
+	draw._name = "ga_tesseract_component";
+	draw._vao = _vao;
+	draw._index_count = _index_count;
+	draw._transform = get_entity()->get_transform();
+	draw._draw_mode = GL_TRIANGLES;
+	draw._material = _material;
 
+	while (params->_static_drawcall_lock.test_and_set(std::memory_order_acquire)) {}
+	params->_static_drawcalls.push_back(draw);
+	params->_static_drawcall_lock.clear(std::memory_order_release);
 }
