@@ -60,7 +60,4 @@ add_custom_target(ALWAYS_COPY_DATA COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CUR
 add_dependencies(ga ALWAYS_COPY_DATA)
 
 file(GLOB_RECURSE GA_DATA_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} data/*)
-foreach (GA_DATA_FILE ${GA_DATA_FILES})
-	message("copying file " ${GA_DATA_FILE})
-	add_custom_command(TARGET ga POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/${GA_DATA_FILE} $<TARGET_FILE_DIR:ga>/${GA_DATA_FILE})
-endforeach(GA_DATA_FILE)
+add_custom_command(TARGET ga POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/data $<TARGET_FILE_DIR:ga>/data)
