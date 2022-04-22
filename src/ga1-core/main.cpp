@@ -50,12 +50,7 @@ int main(int argc, const char** argv)
 	g_font = new ga_font("VeraMono.ttf", 16.0f, 512, 512);
 
 	// Create camera.
-	ga_camera* camera = new ga_camera({ 0.0f, 7.0f, 20.0f });
-	ga_quatf rotation;
-	rotation.make_axis_angle(ga_vec3f::y_vector(), ga_degrees_to_radians(180.0f));
-	camera->rotate(rotation);
-	rotation.make_axis_angle(ga_vec3f::x_vector(), ga_degrees_to_radians(15.0f));
-	camera->rotate(rotation);
+	ga_camera* camera = new ga_camera({ 2.0f, 0.0f, -5.0f });
 
 	ga_entity tess;
 	ga_tesseract_component tesseract(&tess);
