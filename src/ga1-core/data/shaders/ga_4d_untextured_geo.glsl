@@ -1,6 +1,6 @@
-#version 400
+#version 460
 layout (triangles) in;
-layout (triangles, max_vertices = 3) out;
+layout (triangle_strip, max_vertices = 3) out;
 
 struct transform4d 
 {
@@ -109,21 +109,22 @@ void main()
 	bool second = equalf(positions[1].w, u_slice);
 	bool third = equalf(positions[2].w, u_slice);
 	
-	bool two = ((first && second) || (first && third) || (second && third)) && !(first && second && third);
+	bool all = first && second && third;
+	bool none = !first && !second && !third;
 	
-	if (!two) //If only two vertices are visible, then a line is useless
+	if (all || none) //If only two vertices are visible, then a line is useless
 	{
-		bool between = !(first && second && third);
-		vec4 pos1 = between ? vec4(positions[0].xyz, 1.0) : vec4(point_between(positions[0], positions[1]).xyz, 1.0);
-		vec4 pos2 = between ? vec4(positions[1].xyz, 1.0) : vec4(point_between(positions[1], positions[2]).xyz, 1.0);
-		vec4 pos3 = between ? vec4(positions[2].xyz, 1.0) : vec4(point_between(positions[2], positions[0]).xyz, 1.0);
+		bool between = none;
+		vec4 pos1 = between ? vec4(point_between(positions[0], positions[1]).xyz, 1.0) : vec4(positions[0].xyz, 1.0);
+		vec4 pos2 = between ? vec4(point_between(positions[1], positions[2]).xyz, 1.0) : vec4(positions[1].xyz, 1.0);
+		vec4 pos3 = between ? vec4(point_between(positions[2], positions[0]).xyz, 1.0) : vec4(positions[2].xyz, 1.0);
 		
 		fcolor = o_color[0];
-		gl_Position = u_mvp * pos1;
+		gl_Position = pos1 * u_mvp;
 		EmitVertex();
-		gl_Position = u_mvp * pos2;
+		gl_Position = pos2 * u_mvp;
 		EmitVertex();
-		gl_Position = u_mvp * pos3;
+		gl_Position = pos3 * u_mvp;
 		EmitVertex();
 		EndPrimitive();
 	}
