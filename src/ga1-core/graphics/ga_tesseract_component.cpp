@@ -493,6 +493,8 @@ static GLushort indices[] = {
 	94, 95, 92,
 };
 
+static GLuint vertex_texture;
+
 ga_tesseract_component::ga_tesseract_component(ga_entity* ent) 
 	: ga_component(ent)
 {
@@ -502,6 +504,10 @@ ga_tesseract_component::ga_tesseract_component(ga_entity* ent)
 
 	_material = new ga_4d_untextured_material(&_transform4d);
 	_material->init();
+
+	glGenTextures(1, &vertex_texture);
+	glBindTexture(GL_TEXTURE_2D, vertex_texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, 16, 24, 0, GL_RGBA, GL_FLOAT, vertices);
 
 	_index_count = static_cast<uint32_t>(sizeof(indices) / sizeof(indices[0]));
 
@@ -541,6 +547,8 @@ ga_tesseract_component::~ga_tesseract_component()
 
 void ga_tesseract_component::update(ga_frame_params * params) 
 {
+
+
 	ga_static_drawcall draw;
 	draw._name = "ga_tesseract_component";
 	draw._vao = _vao;
