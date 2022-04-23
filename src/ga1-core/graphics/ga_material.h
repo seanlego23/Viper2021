@@ -17,6 +17,8 @@
 
 #include <string>
 
+void load_shader(const char* filename, std::string& contents);
+
 /*
 ** Base class for all graphical materials.
 ** Includes the shaders and other state necessary to draw geometry.
