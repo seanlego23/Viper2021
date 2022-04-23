@@ -10,7 +10,6 @@ struct transform4d
 };
 
 uniform transform4d u_transform4d;
-uniform mat4 u_mvp;
 
 shared float dot;
 shared float b1;
@@ -100,7 +99,6 @@ void main()
 		pos *= u_transform4d.scale;
 		pos = _vec4_rot_rotor(pos);
 		pos += u_transform4d.translate;
-		pos = pos * u_mvp;
 		imageStore(vertices, pixel, pos);
 		pixel.x++;
 	}
