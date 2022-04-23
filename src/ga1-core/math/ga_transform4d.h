@@ -19,7 +19,9 @@ public:
 	ga_transform4d_program();
 	~ga_transform4d_program();
 
-	bool init();
+	bool init(const char* shader_loc);
+
+	ga_uniform get_uniform(const char* name);
 	
 	void use();
 

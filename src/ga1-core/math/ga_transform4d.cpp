@@ -20,10 +20,10 @@ ga_transform4d_program::~ga_transform4d_program()
 	}
 }
 
-bool ga_transform4d_program::init() 
+bool ga_transform4d_program::init(const char* shader_loc) 
 {
 	std::string source_cs;
-	load_shader("data/shaders/ga_4d_transform_compute.glsl", source_cs);
+	load_shader(shader_loc, source_cs);
 
 	_cs = new ga_shader(source_cs.c_str(), GL_COMPUTE_SHADER);
 	if (!_cs->compile()) {
@@ -37,6 +37,10 @@ bool ga_transform4d_program::init()
 	}
 
 	return true;
+}
+
+ga_uniform ga_transform4d_program::get_uniform(const char* name) {
+	return _program->get_uniform(loc);
 }
 
 void ga_transform4d_program::use() 
