@@ -1,5 +1,5 @@
 #version 460
-layout (local_size_x = 4, local_size_y = 8) in;
+layout (local_size_x = 4, local_size_y = 4) in;
 layout (binding=0, rgba32f) uniform image2D vertices;
 
 struct transform4d 
@@ -89,17 +89,11 @@ void main()
 	}
 	memoryBarrierShared();
 	
-	//Transform triangles
-	vec4[3] positions;
-	vec2 pixel = gl_GlobalInvocationID.xy;
-	for (int i = 0; i < 3; i++) 
-	{
-		vec4 pos;
-		pos = imageLoad(vertices, pixel);
-		pos *= u_transform4d.scale;
-		pos = _vec4_rot_rotor(pos);
-		pos += u_transform4d.translate;
-		imageStore(vertices, pixel, pos);
-		pixel.x++;
-	}
+	//Transform vertices
+	vec4 pos = imageLoad(vertices, gl_GlobalInvocationID.xy);
+	pos *= u_transform4d.scale;
+	pos = _vec4_rot_rotor(pos);
+	pos += u_transform4d.translate;
+	imageStore(vertices, gl_GlobalInvocationID.xy, pos);
+	pixel.x++;
 }
