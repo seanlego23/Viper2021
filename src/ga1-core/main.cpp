@@ -20,6 +20,8 @@
 #include "graphics/ga_tesseract_component.h"
 #include "graphics/ga_program.h"
 
+#include "math/ga_transform4d.h"
+
 #include "gui/ga_font.h"
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -51,6 +53,9 @@ int main(int argc, const char** argv)
 
 	// Create camera.
 	ga_camera* camera = new ga_camera({ 2.0f, 0.0f, -5.0f });
+
+	//Initialize 4D compute shader
+	transform4d_program.init("data/shaders/ga_4d_transform_compute.glsl");
 
 	ga_entity tess;
 	ga_tesseract_component tesseract(&tess);
