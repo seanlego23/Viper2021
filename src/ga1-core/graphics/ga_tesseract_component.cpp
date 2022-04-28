@@ -493,6 +493,174 @@ static GLushort indices[] = {
 	94, 95, 92,
 };
 
+static GLfloat _vertices[] = 
+{
+	-1.0f, -1.0f, -1.0f, -1.0f,
+	-1.0f, -1.0f,  1.0f, -1.0f,
+	-1.0f,  1.0f, -1.0f, -1.0f,
+	-1.0f,  1.0f,  1.0f, -1.0f,
+	 1.0f, -1.0f, -1.0f, -1.0f,
+	 1.0f, -1.0f,  1.0f, -1.0f,
+	 1.0f,  1.0f, -1.0f, -1.0f,
+	 1.0f,  1.0f,  1.0f, -1.0f,
+	-1.0f, -1.0f, -1.0f,  1.0f,
+	-1.0f, -1.0f,  1.0f,  1.0f,
+	-1.0f,  1.0f, -1.0f,  1.0f,
+	-1.0f,  1.0f,  1.0f,  1.0f,
+	 1.0f, -1.0f, -1.0f,  1.0f,
+	 1.0f, -1.0f,  1.0f,  1.0f,
+	 1.0f,  1.0f, -1.0f,  1.0f,
+	 1.0f,  1.0f,  1.0f,  1.0f,
+};
+
+static GLuint _triangles[] = 
+{
+	0, 1, 9, //x = -1, y = -1
+	9, 8, 0,
+
+	2, 3, 11, //x = -1, y = 1
+	11, 10, 2,
+
+	4, 5, 13, //x = 1, y = -1
+	13, 12, 4,
+
+	6, 7, 15, //x = 1, y = 1
+	15, 14, 6,
+
+	0, 2, 10, //x = -1, z = -1
+	10, 8, 0,
+
+	1, 3, 11, //x = -1, z = 1
+	11, 9, 1,
+
+	4, 6, 14, //x = 1, z = -1
+	14, 12, 4,
+
+	5, 7, 15, //x = 1, z = 1
+	15, 13, 5,
+
+	0, 2, 3, //x = -1, w = -1
+	3, 1, 0,
+
+	8, 10, 11, //x = -1, w = 1
+	11, 9, 8,
+
+	4, 6, 7, //x = 1, w = -1
+	7, 5, 4,
+
+	12, 14, 15, //x = 1, w = 1
+	15, 13, 12,
+
+	0, 4, 12, //y = -1, z = -1
+	12, 8, 0,
+
+	1, 5, 13, //y = -1, z = 1
+	13, 9, 1,
+
+	2, 6, 14, //y = 1, z = -1
+	14, 10, 2,
+
+	3, 7, 15, //y = 1, z = 1
+	15, 11, 3,
+
+	0, 4, 5, //y = -1, w = -1
+	5, 1, 0,
+
+	8, 12, 13, //y = -1, w = 1
+	13, 9, 8,
+
+	2, 6, 7, //y = 1, w = -1
+	7, 3, 2,
+
+	10, 14, 15, //y = 1, w = 1
+	15, 11, 10,
+
+	0, 4, 6, //z = -1, w = -1
+	6, 2, 0,
+
+	8, 12, 14, //z = -1, w = 1
+	14, 10, 8,
+
+	1, 5, 7, //z = 1, w = -1
+	7, 3, 1,
+
+	9, 13, 15, //z = 1, w = 1
+	15, 11, 9,
+};
+
+static GLuint edges[] =
+{
+	 0,  1,
+	 0,  2,
+	 0,  4,
+	 1,  3,
+	 1,  5,
+	 1,  9,
+	 2,  3,
+	 2,  6,
+	 3,  7,
+	 3, 11,
+	 4,  5,
+	 4,  6,
+	 5,  7,
+	 5, 13,
+	 6,  7,
+	 7, 15,
+	 8,  0,
+	 9,  8,
+	10,  2,
+	10,  8,
+	11,  9,
+	11, 10,
+	12,  4,
+	12,  8,
+	13,  9,
+	13, 12,
+	14,  6,
+	14, 10,
+	14, 12,
+	15, 11,
+	15, 13,
+	15, 14,
+};
+
+static GLuint adjacent_triangles[] =
+{
+	//Organized by edge above
+	 0, 17, 33,
+	 8, 16, 41,
+	24, 32, 40,
+	10, 17, 45,
+	26, 33, 44,
+	 0, 11, 27,
+	 2, 16, 37,
+	28, 36, 41,
+	30, 37, 45,
+	 2, 10, 31,
+	 4, 21, 32,
+	12, 20, 40,
+	14, 21, 44,
+	 4, 15, 26,
+	 6, 20, 36,
+	 6, 14, 30,
+	 1,  9, 25,
+	 1, 19, 35,
+	 3,  8, 29,
+	 9, 18, 43,
+	11, 19, 47,
+	 3, 18, 39,
+	 5, 13, 24,
+	25, 34, 42,
+	27, 35, 46,
+	 5, 23, 34,
+	 7, 12, 28,
+	29, 38, 43,
+	13, 22, 42,
+	31, 39, 47,
+	15, 23, 46,
+	 7, 22, 38,
+};
+
 static GLuint vertex_texture;
 
 ga_tesseract_component::ga_tesseract_component(ga_entity* ent) 
@@ -507,7 +675,7 @@ ga_tesseract_component::ga_tesseract_component(ga_entity* ent)
 
 	glGenTextures(1, &vertex_texture);
 	glBindTexture(GL_TEXTURE_2D, vertex_texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, 16, 24, 0, GL_RGBA, GL_FLOAT, vertices);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, 4, 24, 0, GL_RGBA, GL_FLOAT, _vertices);
 
 	_index_count = static_cast<uint32_t>(sizeof(indices) / sizeof(indices[0]));
 
@@ -547,6 +715,23 @@ ga_tesseract_component::~ga_tesseract_component()
 
 void ga_tesseract_component::update(ga_frame_params * params) 
 {
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, vertex_texture);
+	glBindImageTexture(0, vertex_texture, 0, GL_FALSE, 0, GL_READ_WRITE, GL_RGBA32F);
+
+	ga_uniform translate = transform4d_program.get_uniform("u_transform4d.translate");
+	ga_uniform scale = transform4d_program.get_uniform("u_transform4d.scale");
+	ga_uniform rotor = transform4d_program.get_uniform("u_transform4d.rotor");
+
+	transform4d_program.use();
+
+	translate.set(_transform4d._translate);
+	scale.set(_transform4d._scale);
+	rotor.set(_transform4d._rotation);
+
+	glDispatchCompute(1, 1, 1);
+	glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
+
 
 
 	ga_static_drawcall draw;
