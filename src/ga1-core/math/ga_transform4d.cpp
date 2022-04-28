@@ -4,6 +4,7 @@
 #include "ga_transform4d.h"
 
 float w_slice = 1.0f;
+ga_transform4d_program transform4d_program;
 
 ga_transform4d_program::ga_transform4d_program()
 {
@@ -40,7 +41,7 @@ bool ga_transform4d_program::init(const char* shader_loc)
 }
 
 ga_uniform ga_transform4d_program::get_uniform(const char* name) {
-	return _program->get_uniform(loc);
+	return _program->get_uniform(name);
 }
 
 void ga_transform4d_program::use() 

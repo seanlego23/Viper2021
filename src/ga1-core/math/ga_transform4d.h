@@ -31,3 +31,4 @@ private:
 };
 
 extern ga_transform4d_program transform4d_program;
+extern ga_transform4d_program slice_program;
